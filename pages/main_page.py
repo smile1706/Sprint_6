@@ -1,9 +1,8 @@
 import allure
 from pages.base_page import BasePage
-from curl import *
+
 from locators.main_page_locators import MainPageLocators
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
 
 class MainPage(BasePage):
     @allure.step("Кликнуть на логотип Самокат")
@@ -15,7 +14,7 @@ class MainPage(BasePage):
     def click_on_logo_yandex(self):
         element = self.wait_for_element(MainPageLocators.HEADER_LOGO_YANDEX, 10)
         element.click()
-        WebDriverWait(self.driver, 10).until(lambda d: len(d.window_handles) > 1)
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        WebDriverWait(self.driver, 25).until(EC.url_contains(dzen_page))
 
+    @allure.step("Ожидание загрузки новой вкладки")
+    def new_tab_load_wait(self, url):
+        self.redirect_to_new_tab_load_wait(url)

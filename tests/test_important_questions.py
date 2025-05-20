@@ -9,6 +9,8 @@ class TestImportantQuestions:
     @pytest.mark.parametrize('number, expected_text', Data.answers)
     def test_question_answers(self, driver, number, expected_text):
         main_page = ImportantQuestionsPage(driver)
+
         main_page.wait_for_question_list()
         main_page.click_on_question(number)
+
         assert main_page.check_answers(number, expected_text)

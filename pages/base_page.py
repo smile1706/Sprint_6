@@ -37,3 +37,13 @@ class BasePage:
         return WebDriverWait(self.driver, timeout).until(
             EC.text_to_be_present_in_element_attribute(locator, attribute, value)
         )
+
+    @allure.step("Переход на новую вкладку и ожидание загрузки страницы")
+    def redirect_to_new_tab_load_wait(self, url, timeout=25):
+        WebDriverWait(self.driver, timeout).until(lambda driver: len(driver.window_handles) > 1)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        return WebDriverWait(self.driver, timeout).until(EC.url_to_be(url))
+
+    @allure.step("Получение значения url текущей страницы")
+    def get_current_url(self):
+        return self.driver.current_url
